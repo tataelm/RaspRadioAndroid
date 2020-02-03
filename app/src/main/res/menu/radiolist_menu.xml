@@ -4,4 +4,8 @@
     <item
         android:id="@+id/menu_favourite"
         android:title="Set/Unset as Favourite" />
+
+    <item
+        android:id="@+id/menu_delchannel"
+        android:title="Delete Channel" />
 </menu>

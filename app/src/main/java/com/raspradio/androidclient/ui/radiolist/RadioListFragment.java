@@ -1,5 +1,6 @@
 package com.raspradio.androidclient.ui.radiolist;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextMenu;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -79,13 +81,12 @@ public class RadioListFragment extends Fragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
+        final RadioChannel rc = MainActivity._listRadioChannels.get(info.position);
+        final int radioID = rc.get_radioId();
+
         switch(item.getItemId()) {
 
             case R.id.menu_favourite:
-
-                RadioChannel rc = MainActivity._listRadioChannels.get(info.position);
-
-                int radioID = rc.get_radioId();
 
                 MainActivity._serviceConnection.setUnsetFavourite(radioID);
 
@@ -101,6 +102,35 @@ public class RadioListFragment extends Fragment {
                 _adapter.notifyDataSetChanged();
 
                 return true;
+
+            case R.id.menu_delchannel:
+
+
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                MainActivity._serviceConnection.deleteChannel(radioID);
+                                MainActivity._listRadioChannels.remove(rc);
+                                _adapter.notifyDataSetChanged();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure want to delete this channel?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
+
+                return true;
+
             default:
                 return super.onContextItemSelected(item);
         }

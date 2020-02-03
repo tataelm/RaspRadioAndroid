@@ -119,6 +119,15 @@ public class RadioConnection {
         }
     }
 
+    public void deleteChannel(int channelId)
+    {
+        try {
+            URL radioHostURL = new URL(MainActivity.RADIO_HOST + "deleteChannel/" + channelId);
+            radioHostURL.openStream();
+        } catch (Exception ex) {
+        }
+    }
+
     public void playPause()
     {
         try {
