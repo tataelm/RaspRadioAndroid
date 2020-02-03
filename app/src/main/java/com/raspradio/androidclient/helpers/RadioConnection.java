@@ -119,6 +119,15 @@ public class RadioConnection {
         }
     }
 
+    public void addChannel(String radioName, String radioURL)
+    {
+        try {
+            URL radioHostURL = new URL(MainActivity.RADIO_HOST + "addChannel/" + radioName + "/" + radioURL);
+            radioHostURL.openStream();
+        } catch (Exception ex) {
+        }
+    }
+
     public void deleteChannel(int channelId)
     {
         try {

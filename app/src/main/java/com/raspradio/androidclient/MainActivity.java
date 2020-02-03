@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 // TODO must scan again
+
             }
         }
     }
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initiliazeRadioChannels() {
+    public static void initiliazeRadioChannels() {
         _listRadioChannels = _serviceConnection.getChannels();
     }
 
