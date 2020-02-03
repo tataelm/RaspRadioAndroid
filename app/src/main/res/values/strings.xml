@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RaspRadio</string>
+    <string name="title_home">Channels</string>
+    <string name="title_dashboard">Radio Control</string>
+    <string name="title_notifications">Settings</string>
+</resources>
